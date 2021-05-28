@@ -50,7 +50,7 @@ class RateApp extends React.Component {
 
                         <TouchableOpacity style={styles.rateNowContainer}
                             onPress={() => {
-                                Linking.openURL(Platform.OS == 'ios' ? 'https://apps.apple.com/' : 'https://play.google.com/store/apps')
+                                Linking.openURL(Platform.OS == 'ios' ? 'https://apps.apple.com/us/app/ez-find/id1524643683' : 'https://play.google.com/store/apps/details?id=com.brainyapps.ezfind')
                             }}>
                             <Text style={styles.submitBurron}>RATE APP</Text>
                         </TouchableOpacity>

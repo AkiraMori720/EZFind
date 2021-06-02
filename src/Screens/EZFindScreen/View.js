@@ -15,6 +15,8 @@ import firestore from '@react-native-firebase/firestore';
 import { connect } from 'react-redux'
 import Geolocation from 'react-native-geolocation-service';
 import { setLocation } from '../../reducers/user'
+import I18n from "../../i18n";
+
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 class EZScreen extends React.Component {
@@ -46,6 +48,7 @@ class EZScreen extends React.Component {
                 });
                 this.setState({ categories, loading: false })
             });
+        console.log('locale', I18n.locale);
     }
     componentWillUnmount() {
         this?.subscriber && this.subscriber()
@@ -68,7 +71,7 @@ class EZScreen extends React.Component {
                         this.getLocation();
                     } else {
                         console.log('location permission denied');
-                        alert('location permission denied');
+                        alert(I18n.t('location permission denied'));
                     }
                 } catch (err) {
                     console.warn(err);
@@ -107,7 +110,7 @@ class EZScreen extends React.Component {
                 onPress={() => {
                     if (parent) {
                         this.setState({ loading: true })
-                        this.subscriber = firestore()
+                        firestore()
                             .collection('categories')
                             .doc(item.key)
                             .collection('subcategories')
@@ -135,7 +138,7 @@ class EZScreen extends React.Component {
         const { user, profile } = this.props
         return (
             <View style={[styles.bottomContainer, { flex: 0.9 }]}>
-                <Text style={styles.checkboxTextStyle}>{'Categories'}</Text>
+                <Text style={styles.checkboxTextStyle}>{I18n.t('Categories')}</Text>
                 <View style={styles.flatListContainer}>
                     <FlatList
                         numColumns={2}
@@ -227,7 +230,7 @@ class EZScreen extends React.Component {
                             } else {
                                 MessageBarManager.showAlert({
                                     title: '',
-                                    message: 'All Profile Details Required to post items in the app',
+                                    message: I18n.t('All_profile_details_required_to_post_items'),
                                     alertType: 'warning'
                                 });
                                 this.props.navigation.navigate('ProfileScreen')

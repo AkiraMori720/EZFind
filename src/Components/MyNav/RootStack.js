@@ -20,6 +20,7 @@ const Drawer = createDrawerNavigator();
 let commonData = commonDataManager.getInstance();
 
 import {CommonActions } from '@react-navigation/native';
+import I18n from "../../i18n";
 
 
 
@@ -71,23 +72,23 @@ function CustomDrawerContent(props) {
             </View>
             <View style={styles.drawerItemsContainer} >
                 <DrawerItem
-                    label={()=><Text style={styles.drawerItemLabelText} >{"Reserve Room"}</Text>}
+                    label={()=><Text style={styles.drawerItemLabelText} >{I18n.t("Reserve Room")}</Text>}
                     onPress={()=>props.navigation.navigate("ReserveRoom")}
                     icon={()=> <Image source={require("../assets/images/Reserve-icon.png")} style={styles.drawerItemImage}
                     />}/>
                 <DrawerItem
-                    label={()=><Text style={styles.drawerItemLabelText} >{"My Reservations"}</Text>}
+                    label={()=><Text style={styles.drawerItemLabelText} >{I18n.t("My Reservations")}</Text>}
                     onPress={()=>props.navigation.navigate("MyReservations")}
                     icon={()=> <Image source={require("../assets/images/My-reservation-icon.png")} style={styles.drawerItemImage}
                     />}/>
 
                 <DrawerItem
-                    label={()=><Text style={styles.drawerItemLabelText} >{"Rooms"}</Text>}
+                    label={()=><Text style={styles.drawerItemLabelText} >{I18n.t("Rooms")}</Text>}
                     onPress={()=>props.navigation.navigate("Rooms")}
                     icon={()=> <Image source={require("../assets/images/Room-icon.png")} style={styles.drawerItemImage}
                     />}/>
                 <DrawerItem
-                    label={()=><Text style={styles.drawerItemLabelText} >{"Log Out"}</Text>}
+                    label={()=><Text style={styles.drawerItemLabelText} >{I18n.t("Log Out")}</Text>}
                     onPress={()=>onLogout(props.navigation)}
                     icon={()=> <Image source={require("../assets/images/Logout-icon.png")} style={styles.drawerItemImage}
                     />}/>

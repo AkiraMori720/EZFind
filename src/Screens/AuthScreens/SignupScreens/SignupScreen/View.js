@@ -20,6 +20,7 @@ import images from '../../../../Assets/Images/images';
 import styles from './Styles';
 
 import { CommonActions } from '@react-navigation/native';
+import I18n from "../../../../i18n";
 
 class SignUpScreen extends React.Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class SignUpScreen extends React.Component {
     if (isValidEmail && isLeast6Char && isContainLetter && isContainNum && isContainSpecial) {
       this.setModalVisible(true)
     } else {
-      alert(isValidEmail ? 'Please enter valid password' : 'Please enter valid email address')
+      alert(isValidEmail ? I18n.t('Please enter valid password') : I18n.t('Please enter valid email'))
     }
   }
   onCreateWithEmailAndPassword() {
@@ -105,14 +106,14 @@ class SignUpScreen extends React.Component {
               .catch(err => {
                 this.setState({ spinner: false })
                 setTimeout(() => {
-                  alert("failed adding user data!")
+                  alert(I18n.t("failed adding user data"))
                 }, 100);
               });
           }
           else {
             this.setState({ spinner: false })
             setTimeout(() => {
-              alert("failed signup!")
+              alert(I18n.t("failed signup"))
             }, 100);
           }
         })
@@ -120,19 +121,19 @@ class SignUpScreen extends React.Component {
           this.setState({ spinner: false })
           setTimeout(() => {
             if (error.code === 'auth/email-already-in-use') {
-              alert('That email address is already in use!');
+              alert(I18n.t('That email address is already in use'));
               return
             }
 
             if (error.code === 'auth/invalid-email') {
-              alert('That email address is invalid!');
+              alert(I18n.t('That email address is invalid'));
               return
             }
             alert(error);
           }, 100);
         });
     } else {
-      alert(isValidEmail ? 'Please enter valid password' : 'Please enter valid email address')
+      alert(isValidEmail ? I18n.t('Please enter valid password') : I18n.t('Please enter valid email'))
     }
   }
   //================================ Navigation Functions ======================================//
@@ -210,10 +211,10 @@ class SignUpScreen extends React.Component {
         </View>
         <View style={styles.midView}>
           {/* //================================ Email Input ======================================// */}
-          <Text style={styles.textStyleSignup}>SIGN UP</Text>
+          <Text style={styles.textStyleSignup}>{I18n.t('SIGN UP')}</Text>
           <AppInput
             height={hp(6)}
-            placeholder={'Email'}
+            placeholder={I18n.t('Email')}
             colortextInput={colors.white}
             paddingLeft={wp(5)}
             placeholderTextColor={colors.white}
@@ -234,14 +235,14 @@ class SignUpScreen extends React.Component {
               />
             </View>
             <View style={styles.checkBoxText}>
-              <Text style={styles.checkBoxTextStyle}>Valid email</Text>
+              <Text style={styles.checkBoxTextStyle}>{I18n.t('Valid email')}</Text>
             </View>
           </View>
           {/* //================================ Password Input ======================================// */}
           <AppInput
             height={hp(6)}
             borderRadius={wp(7)}
-            placeholder={'Password'}
+            placeholder={I18n.t('Password')}
             marginTop={5}
             secureEntry={showPassword}
             colortextInput={colors.white}
@@ -276,7 +277,7 @@ class SignUpScreen extends React.Component {
                   styles.checkBoxTextStyle
 
                 }>
-                At least 6 characters long
+                {I18n.t('At least 6 characters long')}
               </Text>
             </View>
           </View>
@@ -291,7 +292,7 @@ class SignUpScreen extends React.Component {
               <Text
                 style={
                   styles.checkBoxTextStyle}>
-                Contains a letter
+                {I18n.t('Contains a letter')}
               </Text>
             </View>
           </View>
@@ -307,7 +308,7 @@ class SignUpScreen extends React.Component {
                 style={
                   styles.checkBoxTextStyle
                 }>
-                Contains a number
+                {I18n.t('Contains a number')}
               </Text>
             </View>
           </View>
@@ -323,7 +324,7 @@ class SignUpScreen extends React.Component {
                 style={
                   styles.checkBoxTextStyle
                 }>
-                Contains a special character
+                {I18n.t('Contains a special character')}
               </Text>
             </View>
           </View>
@@ -334,7 +335,7 @@ class SignUpScreen extends React.Component {
             height={hp(8)}
             width={'80%'}
             style={styles.buttonStyles}
-            title={'SIGN UP'}
+            title={I18n.t('SIGN UP')}
             titleColor={colors.appBlue}
             bgColor={colors.AppGreenColor}
             titleStyle={[styles.titleStyles]}
@@ -344,7 +345,7 @@ class SignUpScreen extends React.Component {
         <View style={styles.lowerView}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('LoginScreen')}>
-            <Text style={styles.textStyle}>Already have an account.</Text>
+            <Text style={styles.textStyle}>{I18n.t('Already have an account')}</Text>
           </TouchableOpacity>
         </View>
         {/* //================================ model ======================================// */}
@@ -367,7 +368,7 @@ class SignUpScreen extends React.Component {
         </Modal>
         <Spinner
           visible={this.state.spinner}
-          textContent={'Creating...'}
+          textContent={I18n.t('Creating')}
           textStyle={{ color: 'white' }}
         />
       </ImageBackground>

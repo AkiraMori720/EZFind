@@ -16,6 +16,7 @@ import AutoCompleteInput from './AutoCompleteInput';
 import AppHeader from "../../../../../Components/AppHeader/AppHeader";
 import images from "../../../../../Assets/Images/images";
 import colors from '../../../../../Assets/Colors/colors'
+import I18n from "../../../../../i18n";
 const PLACE_DETAIL_URL =
     'https://maps.googleapis.com/maps/api/place/details/json';
 const DEFAULT_DELTA = { latitudeDelta: 0.015, longitudeDelta: 0.0121 };
@@ -23,7 +24,7 @@ const DEFAULT_DELTA = { latitudeDelta: 0.015, longitudeDelta: 0.0121 };
 export default class LocationView extends React.Component {
     static defaultProps = {
         markerColor: 'black',
-        actionText: 'DONE',
+        actionText: I18n.t('DONE'),
         onLocationSelect: () => ({}),
         debounceDuration: 300,
         components: [],
@@ -131,9 +132,9 @@ export default class LocationView extends React.Component {
                 <View style={{ flex: 0.1, }}>
                     <AppHeader
                         leftIconPath={images.headerLeftBack}
-                        title={this.props.isEdit ? 'Edit Delivery Address' : 'New Delivery Address'}
+                        title={this.props.isEdit ? I18n.t('Edit Delivery Address') : I18n.t('New Delivery Address')}
                         onLeftIconPress={() => this.props.navigation.goBack()}
-                        rightText='Done'
+                        rightText={I18n.t('Done')}
                         onRightIconPress={() => {
                             const data = this._input.getAddress();
                             if (data && data.json) {

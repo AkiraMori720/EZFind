@@ -58,7 +58,7 @@ const Styles = StyleSheet.create({
     },
     forSaleText: {
         height: hp(5),
-        width: '60%',
+        width: '100%',
         justifyContent: "center",
         paddingBottom: wp(2)
     },

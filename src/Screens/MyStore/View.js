@@ -15,6 +15,7 @@ import styles from './Styles';
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore';
 import moment from 'moment'
+import I18n from "../../i18n";
 
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -60,8 +61,8 @@ class FavoriteScreen extends React.Component {
                 product={item}
                 image={item.photo && item.photo.length > 0 ? item.photo[0] : ''}
                 title={item.title}
-                price={item.price && item.price > 0 ? `$${item.price}` : 'Free'}
-                dayTime={`Posted ${moment(item.createdat).fromNow()}`}
+                price={item.price && item.price > 0 ? `$${item.price}` : I18n.t('Free')}
+                dayTime={I18n.t('Posted') + `${moment(item.createdat).fromNow()}`}
                 ml={item.ml}
                 description={item.description}
                 location={item.location && item.location.address}
@@ -72,19 +73,19 @@ class FavoriteScreen extends React.Component {
                 }}
                 onDelete={() => {
                     Alert.alert(
-                        'Confirm',
+                        I18n.t('Confirm'),
                         `Are you sure to delete?`,
                         [
-                            { text: 'Cancel', onPress: () => { }, style: 'cancel' },
+                            { text: I18n.t('Cancel'), onPress: () => { }, style: 'cancel' },
                             {
-                                text: 'Ok', onPress: () => {
+                                text: I18n.t('Ok'), onPress: () => {
                                     firestore()
                                         .collection('shopping_items').doc(item.key)
                                         .delete()
                                         .then(() => {
                                             MessageBarManager.showAlert({
                                                 title: '',
-                                                message: 'Successfully deleted!',
+                                                message: I18n.t('Successfully deleted'),
                                                 alertType: 'success'
                                             });
                                         });
@@ -114,7 +115,7 @@ class FavoriteScreen extends React.Component {
                         onLeftIconPress={() => this.props.navigation.openDrawer()}
                         leftIconPath={images.ic_hamburger_menu}
                         lefticonSize={wp(5)}
-                        title={'My Items'}
+                        title={I18n.t('My Items')}
                         bgColor={colors.AppGreenColor}
                     />
                 </View>
@@ -130,7 +131,7 @@ class FavoriteScreen extends React.Component {
                                 renderItem={({ item }) => this.menuItem(item)}
                                 keyExtractor={item => item.key}
                             /> :
-                            <Text style={{ fontSize: 12, marginTop: 10, color: 'gray', alignSelf: 'center' }}>No items</Text>
+                            <Text style={{ fontSize: 12, marginTop: 10, color: 'gray', alignSelf: 'center' }}>{I18n.t('No items')}</Text>
                     }
                 </View>
             </View>

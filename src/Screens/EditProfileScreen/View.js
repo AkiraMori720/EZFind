@@ -13,6 +13,7 @@ import colors from '../../Assets/Colors/colors';
 import images from '../../Assets/Images/images';
 import styles from './Styles';
 import { connect } from 'react-redux'
+import I18n from "../../i18n";
 
 class UserProfileScreen extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class UserProfileScreen extends React.Component {
             onLeftIconPress={() => this.props.navigation.goBack()}
             leftIconPath={images.headerLeftBack}
             lefticonSize={wp(5)}
-            title={'User Profile'}
+            title={I18n.t('User Profile')}
             bgColor={colors.AppGreenColor}
             rightIconOnePath={images.ic_edit} ProfileScreen
             rightIconSize={20}

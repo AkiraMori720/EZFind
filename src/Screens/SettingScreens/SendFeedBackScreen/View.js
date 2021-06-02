@@ -17,6 +17,7 @@ import styles from './Styles'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore';
+import I18n from "../../../i18n";
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 const max_length = 5000
@@ -38,7 +39,7 @@ class SendFeedback extends React.Component {
     submit() {
         const { name, email, subject, message } = this.state
         if(!this.validateEmail(email)){
-            alert('Please enter valid email address.')
+            alert(I18n.t('Please enter valid email'))
             return 
         }
         if (name && name.length > 0 && email && email.length && subject && subject.length > 0 && message && message.length) {
@@ -54,14 +55,14 @@ class SendFeedback extends React.Component {
                         setTimeout(() => {
                             MessageBarManager.showAlert({
                                 title: '',
-                                message: 'Successfully sent!',
+                                message: I18n.t('Successfully sent'),
                                 alertType: 'success'
                             });
                             self.props.navigation.goBack()
                         }, 100)
                     })
                 });
-        } else alert('Please fill out this form.')
+        } else alert(I18n.t('Please fill out this form'))
     }
     render() {
         const { name, email, subject, message } = this.state
@@ -77,7 +78,7 @@ class SendFeedback extends React.Component {
 
                         <AppHeader
                             headerHeight='100%'
-                            title={'Report a Problem'}
+                            title={I18n.t('Report a Problem')}
                             titleFontSize={wp(5)}
                             leftIconPath={images.headerLeftBack}
                             iconWidth={wp(5)}
@@ -93,7 +94,7 @@ class SendFeedback extends React.Component {
                             <View style={styles.titleNameContainer}>
                                 <AppInput
                                     height={hp(6)}
-                                    placeholder={'Name'}
+                                    placeholder={I18n.t('Name')}
                                     width={'100%'}
                                     colortextInput={colors.black}
                                     placeholderTextColor={colors.placeholder_text_color}
@@ -108,7 +109,7 @@ class SendFeedback extends React.Component {
                             <View style={styles.titleContainer}>
                                 <AppInput
                                     height={hp(6)}
-                                    placeholder={'Email Address'}
+                                    placeholder={I18n.t('Email Address')}
                                     width={'100%'}
                                     colortextInput={colors.black}
                                     placeholderTextColor={colors.placeholder_text_color}
@@ -123,7 +124,7 @@ class SendFeedback extends React.Component {
                             <View style={styles.titleContainer}>
                                 <AppInput
                                     height={hp(6)}
-                                    placeholder={'Subject/Concern'}
+                                    placeholder={I18n.t('Subject_Concern')}
                                     width={'100%'}
                                     colortextInput={colors.black}
                                     placeholderTextColor={colors.placeholder_text_color}
@@ -138,7 +139,7 @@ class SendFeedback extends React.Component {
                             <View style={styles.titleContainer}>
                                 <AppInput
                                     height={hp(25)}
-                                    placeholder={'Message'}
+                                    placeholder={I18n.t('Message')}
                                     width={'100%'}
                                     colortextInput={colors.black}
                                     placeholderTextColor={colors.placeholder_text_color}
@@ -156,7 +157,7 @@ class SendFeedback extends React.Component {
                                     textAlignVertical="top"
                                 />
                                 <View style={styles.CharacterView}>
-                                    <Text style={styles.CharacterStyle}>{max_length - message.length} Remaining Characters</Text>
+                                    <Text style={styles.CharacterStyle}>{max_length - message.length} {I18n.t('Remaining Characters')}</Text>
                                 </View>
                             </View>
                         </View>
@@ -169,7 +170,7 @@ class SendFeedback extends React.Component {
                                 height={hp(8)}
                                 width={'90%'}
                                 style={styles.buttonStyles}
-                                title={'SAVE'}
+                                title={I18n.t('SAVE')}
                                 bgColor={colors.AppGreenColor}
                                 titleColor={colors.dark_red}
                                 titleStyle={[styles.titleStyles]}

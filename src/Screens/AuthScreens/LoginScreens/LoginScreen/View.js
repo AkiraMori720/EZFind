@@ -1,12 +1,11 @@
 
 //================================ React Native Imported Files ======================================//
 
-import { View, Text, StatusBar, Image, TouchableOpacity, ImageBackground } from 'react-native';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {Image, ImageBackground, StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import React from 'react';
 
 //================================ Local Imported Files ======================================//
-
 import AppHeader from '../../../../Components/AppHeader/AppHeader';
 import AppInput from '../../../../Components/AppInput/AppInput';
 import Button from '../../../../Components/Button/Button';
@@ -14,13 +13,15 @@ import colors from '../../../../Assets/Colors/colors';
 import images from '../../../../Assets/Images/images';
 import styles from "./Styles";
 import auth from '@react-native-firebase/auth';
-import { connect } from 'react-redux'
-import { updateUser, updateUserProfile, updateFCMToken } from './../../../../reducers/user'
+import {connect} from 'react-redux'
+import {updateFCMToken, updateUser, updateUserProfile} from './../../../../reducers/user'
 import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
-import { STORAGE_REMEMBER } from '../../../../constant'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {STORAGE_REMEMBER} from '../../../../constant'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import I18n, {LANGUAGES} from '../../../../i18n';
+import moment from "moment";
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -63,12 +64,12 @@ class LoginScreen extends React.Component {
                             .collection(`users`)
                             .doc(`${res.user._user.uid}`)
                             .get()
-                            .then((doc) => {
+                            .then(async (doc) => {
                                 if (doc) {
                                     console.log('fetch user profile!', doc.data());
                                     const user_data = doc.data()
                                     if (user_data && user_data.disabled || user_data.type == 'admin') {
-                                        alert(user_data.type == 'admin' ? "You can't login as admin." : "Your account is inactived.")
+                                        alert(user_data.type == 'admin' ? I18n.t("error_can_not_login_as_admin") : I18n.t("Your account is inactived"))
                                         this.setState({ spinner: false })
                                         try {
                                             auth()
@@ -83,6 +84,12 @@ class LoginScreen extends React.Component {
                                         }
                                         return
                                     }
+                                    if(user_data && user_data.language){
+                                        await AsyncStorage.setItem('language', user_data.language);
+                                        const lang = LANGUAGES.find(l => l.value.toLowerCase() === user_data.language)?.value || user_data.language;
+                                        I18n.locale = lang;
+                                        moment.locale(lang);
+                                    }
                                     this.props.updateUser(res.user._user)
                                     this.setState({ spinner: false })
                                     setTimeout(() => {
@@ -96,7 +103,7 @@ class LoginScreen extends React.Component {
                     else {
                         this.setState({ spinner: false })
                         setTimeout(() => {
-                            alert("failed login!")
+                            alert(I18n.t("failed login"))
                         }, 100)
                     }
                 })
@@ -104,16 +111,16 @@ class LoginScreen extends React.Component {
                     this.setState({ spinner: false })
                     setTimeout(() => {
                         if (error.code === 'auth/user-not-found') {
-                            alert('User is not registered with this email.');
+                            alert(I18n.t('User is not registered with this email'));
                             return
                         }
                         if (error.code === 'auth/email-already-in-use') {
-                            alert('That email address is already in use!');
+                            alert(I18n.t('That email address is already in use'));
                             return
                         }
 
                         if (error.code === 'auth/invalid-email') {
-                            alert('That email address is invalid!');
+                            alert(I18n.t('That email address is invalid'));
                             return
                         }
 
@@ -121,7 +128,7 @@ class LoginScreen extends React.Component {
                     }, 100)
                 });
         } else {
-            alert('Please enter email and password.')
+            alert(I18n.t('Please enter email and password'))
         }
     }
 
@@ -153,12 +160,12 @@ class LoginScreen extends React.Component {
                 </View>
                 <KeyboardAwareScrollView style={{ paddingBottom: 30, backgroundColor: 'rgba(255, 255, 255, 0.3)' }} enableOnAndroid>
                     <View style={styles.midView}>
-                        <Text style={styles.textStyleSignup}>LOGIN</Text>
+                        <Text style={styles.textStyleSignup}>{I18n.t('LOGIN')}</Text>
 
                         {/* //================================ Email Input ======================================// */}
                         <AppInput
                             height={hp(6)}
-                            placeholder={'Email'}
+                            placeholder={I18n.t('Email')}
                             width={'80%'}
                             colortextInput={colors.white}
                             paddingLeft={wp(5)}
@@ -176,7 +183,7 @@ class LoginScreen extends React.Component {
                         <AppInput
                             height={hp(6)}
                             borderRadius={wp(7)}
-                            placeholder={'Password'}
+                            placeholder={I18n.t('Password')}
                             width={'80%'}
                             marginTop={5}
                             onRightIconPress={() => this.togglePassword()}
@@ -223,7 +230,7 @@ class LoginScreen extends React.Component {
                                 />
                             </TouchableOpacity>
                             <View style={styles.checkBoxText}>
-                                <Text style={[styles.checkBoxTextStyle]}>Remember Me</Text>
+                                <Text style={[styles.checkBoxTextStyle]}>{I18n.t('Remember Me')}</Text>
                             </View>
                         </View>
 
@@ -234,7 +241,7 @@ class LoginScreen extends React.Component {
                             height={hp(8)}
                             width={'80%'}
                             style={styles.buttonStyles}
-                            title={'Login'}
+                            title={I18n.t('Login')}
                             bgColor={colors.AppGreenColor}
                             titleColor={colors.dark_red}
                             titleStyle={[styles.titleStyles]}
@@ -242,7 +249,7 @@ class LoginScreen extends React.Component {
                         />
                         <TouchableOpacity
                             onPress={() => this.props.navigation.navigate('ResetPassword')} >
-                            <Text style={styles.textStyle}>Forgot Password?</Text>
+                            <Text style={styles.textStyle}>{I18n.t('Forgot Password')}?</Text>
                         </TouchableOpacity>
                     </View>
                 </KeyboardAwareScrollView>

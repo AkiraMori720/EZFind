@@ -19,6 +19,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import firestore from '@react-native-firebase/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
 import ActionSheet from 'react-native-action-sheet';
+import I18n from "../../i18n";
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 class ProfileScreen extends React.Component {
@@ -42,9 +43,9 @@ class ProfileScreen extends React.Component {
     ActionSheet.showActionSheetWithOptions(
       {
         options: [
-          'Take Photo...',
-          'Choose From Library...',
-          'Cancel'
+          I18n.t('Take_Photo'),
+          I18n.t('Choose_From_Library'),
+          I18n.t('Cancel')
         ],
         cancelButtonIndex: 2,
         destructiveButtonIndex: 0,
@@ -118,7 +119,7 @@ class ProfileScreen extends React.Component {
           this.setState({ spinner: false })
           MessageBarManager.showAlert({
             title: '',
-            message: 'Successfully saved!',
+            message: I18n.t('Successfully saved'),
             alertType: 'success'
           });
           profile_doc.get().then(res => {
@@ -127,7 +128,7 @@ class ProfileScreen extends React.Component {
           })
         })
     } else {
-      alert('Please fill out this form.')
+      alert(I18n.t('Please fill out this form'))
     }
   }
   render() {
@@ -148,7 +149,7 @@ class ProfileScreen extends React.Component {
               onLeftIconPress={() => this.props.navigation.goBack()}
               leftIconPath={images.headerLeftBack}
               lefticonSize={wp(5)}
-              title={'My Profile'}
+              title={I18n.t('My Profile')}
               bgColor={colors.AppGreenColor}
               onRightIconPress={() => this.props.navigation.navigate("EditProfile")}
             />
@@ -185,7 +186,7 @@ class ProfileScreen extends React.Component {
               <View style={styles.titleContainer}>
                 <AppInput
                   height={hp(6)}
-                  placeholder={'First Name'}
+                  placeholder={I18n.t('First Name')}
                   width={'100%'}
                   colortextInput={colors.black}
                   placeholderTextColor={colors.placeholder_text_color}
@@ -201,7 +202,7 @@ class ProfileScreen extends React.Component {
               <View style={styles.titleContainer}>
                 <AppInput
                   height={hp(6)}
-                  placeholder={"Last Name"}
+                  placeholder={I18n.t("Last Name")}
                   width={'100%'}
                   colortextInput={colors.black}
                   placeholderTextColor={colors.placeholder_text_color}
@@ -231,7 +232,7 @@ class ProfileScreen extends React.Component {
               <View style={styles.titleContainer}>
                 <AppInput
                   height={hp(6)}
-                  placeholder={"Address"}
+                  placeholder={I18n.t("Address")}
                   width={'100%'}
                   colortextInput={colors.black}
                   placeholderTextColor={colors.placeholder_text_color}
@@ -250,7 +251,7 @@ class ProfileScreen extends React.Component {
               <View style={styles.titleContainer}>
                 <AppInput
                   height={hp(6)}
-                  placeholder={"Phone Number"}
+                  placeholder={I18n.t("Phone Number")}
                   width={'100%'}
                   colortextInput={colors.black}
                   placeholderTextColor={colors.placeholder_text_color}
@@ -275,7 +276,7 @@ class ProfileScreen extends React.Component {
                 height={hp(8)}
                 width={'80%'}
                 style={styles.buttonStyles}
-                title={'Save'}
+                title={I18n.t('Save')}
                 titleColor={colors.appBlue}
                 bgColor={colors.AppGreenColor}
                 titleStyle={[styles.titleStyles]}
@@ -287,7 +288,7 @@ class ProfileScreen extends React.Component {
           </View>
           <Spinner
             visible={this.state.spinner}
-            textContent={'Updating...'}
+            textContent={I18n.t('Updating')}
             textStyle={styles.spinnerTextStyle}
           />
         </View>

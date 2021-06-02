@@ -6,6 +6,7 @@ import styles from "./style";
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore';
 import LocationView from './LocationView/lib'
+import I18n from "../../i18n";
 
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 const DEFAULT_DELTA = { latitudeDelta: 0.115, longitudeDelta: 0.1121 };
@@ -44,7 +45,7 @@ class NewDeliveryAddress extends React.Component {
                         this.state.loading = false
                         MessageBarManager.showAlert({
                             title: '',
-                            message: 'Successfully updated!',
+                            message: I18n.t('Successfully updated'),
                             alertType: 'success'
                         });
                         this.props.navigation.goBack()
@@ -58,7 +59,7 @@ class NewDeliveryAddress extends React.Component {
                         this.state.loading = false
                         MessageBarManager.showAlert({
                             title: '',
-                            message: 'Successfully added!',
+                            message: I18n.t('Successfully added'),
                             alertType: 'success'
                         });
                         this.props.navigation.goBack()
@@ -66,7 +67,7 @@ class NewDeliveryAddress extends React.Component {
             }
         }
         else {
-            alert('Please fill out this form.')
+            alert(I18n.t('Please fill out this form'))
             return
         }
     }

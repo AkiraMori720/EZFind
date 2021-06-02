@@ -17,6 +17,7 @@ import colors from '../../Assets/Colors/colors';
 import Swiper from 'react-native-swiper';
 import styles from './Styles';
 import { connect } from 'react-redux'
+import I18n from "../../i18n";
 
 class OnBoarding extends React.Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class OnBoarding extends React.Component {
               {/* //================================ Welcome Swiper Screen One ======================================// */}
 
               <View style={styles.midView}>
-                <Text style={styles.textStyleWelcome}>Welcome to EZFind! Re-purpose items, make it available for other people who needs it!</Text>
+                <Text style={styles.textStyleWelcome}>{I18n.t('Welcome_EZFind')}</Text>
               </View>
             </View>
           </Swiper>
@@ -87,7 +88,7 @@ class OnBoarding extends React.Component {
             height={hp(8)}
             width={'80%'}
             style={styles.buttonStyles}
-            title={'CONTINUE'}
+            title={I18n.t('CONTINUE')}
             bgColor={colors.AppGreenColor}
             titleColor={colors.dark_red}
             titleStyle={[styles.titleStyles]}

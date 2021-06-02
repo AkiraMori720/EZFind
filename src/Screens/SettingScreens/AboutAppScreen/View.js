@@ -11,6 +11,7 @@ import Button from '../../../Components/Button/Button';
 import colors from '../../../Assets/Colors/colors';
 import images from '../../../Assets/Images/images';
 import styles from "./Styles";
+import I18n from "../../../i18n";
 
 class AboutApp extends React.Component {
 
@@ -20,7 +21,7 @@ class AboutApp extends React.Component {
             modalVisibleSetting: false,
 
         }
-        setmodalVisibleSetting = (visible) => {
+        this.setmodalVisibleSetting = (visible) => {
             this.setState({ modalVisibleSetting: visible });
         };
     }
@@ -38,7 +39,7 @@ class AboutApp extends React.Component {
 
                     <AppHeader
                         headerHeight='100%'
-                        title={'ABOUT THE APP'}
+                        title={I18n.t('ABOUT THE APP')}
                         titleFontSize={wp(5)}
                         leftIconPath={images.headerLeftBack}
                         iconWidth={wp(5)}
@@ -75,7 +76,7 @@ class AboutApp extends React.Component {
 
                 {/* //================================ Text ======================================// */}
 
-                <View style={styles.BottomTextView}><Text style={styles.MainTextStyle}>This app lets users to post an item they want to dispose and make it available for people who want to take it. Users of this app gets to re-purpose items by making it available for other people who needs it.</Text></View>
+                <View style={styles.BottomTextView}><Text style={styles.MainTextStyle}>{I18n.t('This_app_lets_users_to_post_an_item')}</Text></View>
 
                 {/* //================================ Button ======================================// */}
 
@@ -84,7 +85,7 @@ class AboutApp extends React.Component {
                         height={hp(8)}
                         width={'90%'}
                         style={styles.buttonStyles}
-                        title={'CONTACT US'}
+                        title={I18n.t('CONTACT US')}
                         bgColor={colors.AppRedColor}
                         titleColor={colors.dark_red}
                         titleStyle={[styles.titleStyles]}

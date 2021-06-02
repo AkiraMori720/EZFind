@@ -19,6 +19,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { calcCrow } from '../../utils/utils'
 import { clear } from '../../reducers/filter'
+import I18n from "../../i18n";
 
 class ListingScreen extends React.Component {
     constructor(props) {
@@ -89,8 +90,8 @@ class ListingScreen extends React.Component {
                 product={item}
                 image={item.photo && item.photo.length > 0 ? item.photo[0] : ''}
                 title={item.title}
-                price={item.price && item.price > 0 ? `$${item.price}` : 'Free'}
-                dayTime={`Posted ${moment(item.createdat).fromNow()}`}
+                price={item.price && item.price > 0 ? `$${item.price}` : I18n.t('Free')}
+                dayTime={I18n.t('Posted') + `${moment(item.createdat).fromNow()}`}
                 ml={item.ml}
                 description={item.description}
                 location={item.location && item.location.address}
@@ -156,7 +157,7 @@ class ListingScreen extends React.Component {
                         onLeftIconPress={() => this.props.navigation.goBack()}
                         leftIconPath={images.headerLeftBack}
                         lefticonSize={wp(5)}
-                        title={'Listing'}
+                        title={I18n.t('Listing')}
                         bgColor={colors.AppGreenColor}
                     />
                 </View>
@@ -169,7 +170,7 @@ class ListingScreen extends React.Component {
                         <AppInput
                             paddingLeft={'2%'}
                             height={hp(6)}
-                            placeholder={'Search  item'}
+                            placeholder={I18n.t('Search item')}
                             width={'92%'}
                             colortextInput={colors.black}
                             // paddingLeft={wp(5)}
@@ -211,7 +212,7 @@ class ListingScreen extends React.Component {
                                             renderItem={({ item }) => this.menuItem(item)}
                                             keyExtractor={item => item.key}
                                         /> :
-                                        <Text style={{ fontSize: 12, color: 'gray', marginTop: 10, alignSelf: 'center' }}>No Item</Text>
+                                        <Text style={{ fontSize: 12, color: 'gray', marginTop: 10, alignSelf: 'center' }}>{I18n.t('No items')}</Text>
                                 }
                             </>
                     }

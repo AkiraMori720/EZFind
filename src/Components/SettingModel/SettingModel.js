@@ -6,6 +6,7 @@ import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import colors from '../../Assets/Colors/colors';
 import images from '../../Assets/Images/images';
+import I18n from "../../i18n";
 
 
 
@@ -29,7 +30,7 @@ class SettingsModel extends React.Component {
 
                         </ImageBackground>
                         <View style={styles.textContainer}>
-                            <Text>This app lets users to post an item they want to dispose and make it available for people who want to take it. Users of this app gets to re-purpose items by making it available for other people who needs it.</Text>
+                            <Text>{I18n.t('This_app_lets_users_to_post_an_item')}</Text>
                         </View>
 
                         <View style={styles.buttonViewContainer}>
@@ -40,7 +41,7 @@ class SettingsModel extends React.Component {
                             <View style={styles.CancelViewContainer}>
                                 <TouchableOpacity onPress={this.props.onPressCancel}>
                                     <Text style={styles.AgreeTextStyleContainer}>
-                                        CLOSE
+                                        {I18n.t('CLOSE')}
                                     </Text>
                                 </TouchableOpacity>
                             </View>

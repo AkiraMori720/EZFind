@@ -10,6 +10,7 @@ import Button from '../../../../Components/Button/Button';
 import images from '../../../../Assets/Images/images';
 import colors from '../../../../Assets/Colors/colors';
 import styles from './Styles';
+import I18n from "../../../../i18n";
 
 class NewPassword extends React.Component {
   constructor(props) {
@@ -48,11 +49,11 @@ class NewPassword extends React.Component {
           </View>
           {/* //================================ Input Fields ======================================// */}
           <View style={styles.midView}>
-            <Text style={styles.textStyleSignup}>ENTER NEW PASSWORD</Text>
+            <Text style={styles.textStyleSignup}>{I18n.t('ENTER NEW PASSWORD')}</Text>
 
             <AppInput
               height={hp(6)}
-              placeholder={'John'}
+              placeholder={'john'}
               width={'80%'}
               colortextInput={colors.white}
               paddingLeft={wp(5)}
@@ -89,7 +90,7 @@ class NewPassword extends React.Component {
             <AppInput
               height={hp(6)}
               borderRadius={wp(7)}
-              placeholder={'New Password'}
+              placeholder={I18n.t('New Password')}
               width={'80%'}
               marginTop={5}
               secureEntry={this.state.showPassword}
@@ -108,7 +109,7 @@ class NewPassword extends React.Component {
             <AppInput
               height={hp(6)}
               borderRadius={wp(7)}
-              placeholder={'Confirm New Password'}
+              placeholder={I18n.t('Confirm New Password')}
               width={'80%'}
               marginTop={5}
               secureEntry={this.state.showPassword}
@@ -128,7 +129,7 @@ class NewPassword extends React.Component {
                 style={styles.checkBoxIconStyle}
                 source={images.ic_check_green}
               />
-              <Text style={styles.checkBoxTextStyle}>Password matched</Text>
+              <Text style={styles.checkBoxTextStyle}>{I18n.t('Password matched')}</Text>
             </View>
           </View>
 
@@ -138,7 +139,7 @@ class NewPassword extends React.Component {
               height={hp(8)}
               width={'80%'}
               style={styles.buttonStyles}
-              title={'SAVE CHANGES'}
+              title={I18n.t('SAVE CHANGES')}
               bgColor={colors.AppGreenColor}
               titleColor={colors.dark_red}
               titleStyle={styles.titleStyles}

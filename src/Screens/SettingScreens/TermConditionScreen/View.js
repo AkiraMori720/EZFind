@@ -12,6 +12,7 @@ import colors from '../../../Assets/Colors/colors';
 import images from '../../../Assets/Images/images';
 import styles from './Styles'
 import HTML from 'react-native-render-html';
+import I18n from "../../../i18n";
 class TermsAndCondtions extends React.Component {
 
     constructor(props) {
@@ -40,7 +41,7 @@ class TermsAndCondtions extends React.Component {
                         headerHeight='100%'
                         leftIconPath={images.headerLeftBack}
                         lefticonSize={wp(5)}
-                        title={'TERMS AND CONDITIONS'}
+                        title={I18n.t('TERMS AND CONDITIONS')}
                         titleFontSize={wp(5)}
                         bgColor={colors.AppGreenColor}
                         onLeftIconPress={() => {

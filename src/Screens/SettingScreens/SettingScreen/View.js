@@ -15,10 +15,15 @@ import colors from '../../../Assets/Colors/colors';
 import styles from "./Styles";
 import SettingsModel from '../../../Components/SettingModel/SettingModel';
 import { connect } from 'react-redux'
-import { updateUser } from '../../../reducers/user'
+import {updateUser, updateUserProfile} from '../../../reducers/user'
 import auth from '@react-native-firebase/auth';
 import { CommonActions } from '@react-navigation/native';
 import Share from "react-native-share";
+import SettingLang from "../../../Components/SettingLang";
+import firestore from "@react-native-firebase/firestore";
+import AsyncStorage from "@react-native-community/async-storage";
+import I18n from "../../../i18n";
+import moment from "moment";
 
 class SettingsScreen extends React.Component {
     constructor(props) {
@@ -26,6 +31,7 @@ class SettingsScreen extends React.Component {
         this.state = {
             modalVisible: false,
             modalVisibleSetting: false,
+            modalVisibleLang: false,
             //================================ Data array ======================================//
             Data: [
                 {
@@ -51,7 +57,7 @@ class SettingsScreen extends React.Component {
                 },
                 {
                     id: 4,
-                    title: 'Report a Problem ',
+                    title: 'Report a Problem',
                     firstIcon: images.ic_send_feedback_settings,
                     secondIcon: images.ic_chevron_right,
 
@@ -65,7 +71,6 @@ class SettingsScreen extends React.Component {
                     secondIcon: images.ic_chevron_right,
 
                 },
-
                 {
                     id: 6,
                     title: 'Privacy Policy',
@@ -73,7 +78,13 @@ class SettingsScreen extends React.Component {
                     secondIcon: images.ic_chevron_right,
 
                 },
+                {
+                    id: 7,
+                    title: 'Language',
+                    firstIcon: images.ic_key,
+                    secondIcon: images.ic_chevron_right,
 
+                },
             ]
         }
     }
@@ -95,13 +106,32 @@ class SettingsScreen extends React.Component {
         this.setState({ modalVisibleSetting: false })
     }
 
+    onChangeLang = (lang) => {
+        const { profile, user } = this.props;
+        if(!profile.language || profile.language !== lang){
+            console.log('lang', lang);
+            const profile_doc = firestore().collection('users').doc(user.uid)
+            profile_doc
+                .update({ language: lang })
+                .then(async (res) => {
+                    await AsyncStorage.setItem('language', lang);
+                    I18n.locale = lang;
+                    moment.locale(lang);
+                    profile_doc.get().then(res => {
+                        console.log("upated profile:", res.data())
+                        this.props.updateUserProfile(res.data())
+                    })
+                })
+        }
+        this.setState({modalVisibleLang: false});
+    }
 
     onClickListItem(id) {
         switch (id) {
             case 1: {
                 const url = Platform.OS == 'ios' ? 'https://apps.apple.com/' : 'https://play.google.com/store/apps';
                 const title = 'EZFind';
-                const message = Platform.OS == 'ios' ? 'Got something useful you want to dispose yet is still useful? Join the EFind community. Download EZFind on the app store!' : 'Got something useful you want to dispose yet is still useful? Join the EFind community. Download EZFind on the Google Play Store!';
+                const message = Platform.OS == 'ios' ? I18n.t('Got_something_useful_you_want_to_dispose_on_the_app_store') : I18n.t('Got_something_useful_you_want_to_dispose_on_the_google_store');
                 const icon = '';
                 const options = Platform.select({
                     ios: {
@@ -176,6 +206,7 @@ class SettingsScreen extends React.Component {
                 break;
 
             case 7:
+                this.setState({modalVisibleLang: true});
                 break;
         }
     }
@@ -186,7 +217,7 @@ class SettingsScreen extends React.Component {
                 onPress={() => {
                     this.onClickListItem(item.id)
                 }}
-                upperText={item.title}
+                upperText={I18n.t(item.title)}
                 leftIconImage={item.firstIcon}
                 arrowImage={item.secondIcon}
                 switchItem={item.switchItem}
@@ -203,7 +234,8 @@ class SettingsScreen extends React.Component {
     }
     render() {
         const { modalVisible } = this.state;
-        const { modalVisibleSetting } = this.state;
+        const { modalVisibleSetting, modalVisibleLang } = this.state;
+        console.log('language', this.props.user);
 
         return (
             <View style={styles.mainContainer}>
@@ -219,7 +251,7 @@ class SettingsScreen extends React.Component {
                         // leftText={'left'}
                         leftIconPath={images.ic_hamburger_menu}
                         lefticonSize={wp(5)}
-                        title={'SETTINGS'}
+                        title={I18n.t('SETTINGS')}
                         bgColor={colors.AppGreenColor}
                         titleFontSize={wp(6)}
                         onLeftIconPress={() => this.props.navigation.openDrawer()}
@@ -262,26 +294,42 @@ class SettingsScreen extends React.Component {
                         }}
                     />
                 </Modal>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisibleLang}
+                    onRequestClose={() => {
+                        this.setState({ modalVisibleLang:!modalVisibleLang });
+                    }}>
+                    <SettingLang
+                        language={this.props.profile.language??'en'}
+                        onPressOk={this.onChangeLang}
+                        onPressCancel={() => {
+                            this.setState({ modalVisibleLang:!modalVisibleLang });
+                        }}
+                    />
+                </Modal>
                 {/* //================================ Logout ======================================// */}
                 <TouchableOpacity style={styles.logout}
                     onPress={() => {
                         Alert.alert(
-                            "Logout",
-                            "Are you sure to logout?",
+                            I18n.t("Logout"),
+                            I18n.t("Are you sure to logout"),
                             [
                                 {
-                                    text: "Cancel",
+                                    text: I18n.t("Cancel"),
                                     onPress: () => console.log("Cancel Pressed"),
                                     style: "cancel"
                                 },
                                 {
-                                    text: "OK", onPress: () => {
+                                    text: I18n.t("Ok"), onPress: () => {
 
 
                                         try {
                                             auth()
                                                 .signOut()
-                                                .then(() => {
+                                                .then(async () => {
+                                                    await AsyncStorage.removeItem('language');
                                                     this.props.updateUser()
                                                     this.props.navigation.dispatch(
                                                         CommonActions.reset({
@@ -316,7 +364,7 @@ class SettingsScreen extends React.Component {
                     />
                     <Text style={[styles.textStyle, {
                         color: colors.bright_red
-                    }]}>Log Out</Text>
+                    }]}>{I18n.t('Log Out')}</Text>
 
                 </TouchableOpacity>
             </View>
@@ -325,11 +373,12 @@ class SettingsScreen extends React.Component {
 }
 const mapStateToProps = state => ({
     user: state.user.user,
-
+    profile: state.user.profile
 })
 
 const mapDispatchToProps = {
-    updateUser
+    updateUser,
+    updateUserProfile
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen)

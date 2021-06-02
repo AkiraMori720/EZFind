@@ -16,6 +16,7 @@ import colors from '../../Assets/Colors/colors';
 import styles from './Styles';
 import { connect } from 'react-redux'
 import { setFilters } from '../../reducers/filter'
+import I18n from "../../i18n";
 
 class SearchFilters extends React.Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class SearchFilters extends React.Component {
                         onLeftIconPress={() => this.props.navigation.goBack()}
                         leftIconPath={images.headerLeftBack}
                         lefticonSize={wp(5)}
-                        title={'Search Filters'}
+                        title={I18n.t('Search Filters')}
                         bgColor={colors.AppGreenColor}
                     />
                 </View>
@@ -51,7 +52,7 @@ class SearchFilters extends React.Component {
 
                         {/* //================================ CheckBoxs ======================================// */}
 
-                        <Text style={styles.checkboxTextStyle}>Sort By:</Text>
+                        <Text style={styles.checkboxTextStyle}>{I18n.t('Sort By')}:</Text>
                         <View style={styles.checkboxText}>
                             <View style={styles.checkboxImage}>
 
@@ -61,7 +62,7 @@ class SearchFilters extends React.Component {
 
                             </View>
                             <View style={styles.forSaleText}>
-                                <Text style={styles.checkboxTextStyle}>Nearest Me</Text>
+                                <Text style={styles.checkboxTextStyle}>{I18n.t('Nearest Me')}</Text>
                             </View>
                         </View>
                         <View style={styles.checkboxText}>
@@ -73,7 +74,7 @@ class SearchFilters extends React.Component {
 
                             </View>
                             <View style={styles.forSaleText}>
-                                <Text style={styles.checkboxTextStyle}>Posted Recently</Text>
+                                <Text style={styles.checkboxTextStyle}>{I18n.t('Posted Recently')}</Text>
                             </View>
                         </View>
                         <View style={styles.checkboxText}>
@@ -85,7 +86,7 @@ class SearchFilters extends React.Component {
 
                             </View>
                             <View style={styles.forSaleText}>
-                                <Text style={styles.checkboxTextStyle}>Price High to Low</Text>
+                                <Text style={styles.checkboxTextStyle}>{I18n.t('Price High to Low')}</Text>
                             </View>
                         </View>
                         <View style={styles.checkboxText}>
@@ -97,10 +98,10 @@ class SearchFilters extends React.Component {
 
                             </View>
                             <View style={styles.forSaleText}>
-                                <Text style={styles.checkboxTextStyle}>Price Low to High</Text>
+                                <Text style={styles.checkboxTextStyle}>{I18n.t('Price Low to High')}</Text>
                             </View>
                         </View>
-                        <Text style={styles.checkboxTextStyle}>Filter By:</Text>
+                        <Text style={styles.checkboxTextStyle}>{I18n.t('Filter By')}:</Text>
                         <View style={styles.checkboxText}>
                             <View style={styles.checkboxImage}>
 
@@ -110,7 +111,7 @@ class SearchFilters extends React.Component {
 
                             </View>
                             <View style={styles.forSaleText}>
-                                <Text style={styles.checkboxTextStyle}>Show Free Items Only </Text>
+                                <Text style={styles.checkboxTextStyle}>{I18n.t('Show Free Items Only')}</Text>
                             </View>
                         </View>
                         <View style={styles.checkboxText}>
@@ -122,7 +123,7 @@ class SearchFilters extends React.Component {
 
                             </View>
                             <View style={styles.forSaleText}>
-                                <Text style={styles.checkboxTextStyle}>Show Free for Sale Only</Text>
+                                <Text style={styles.checkboxTextStyle}>{I18n.t('Show Free for Sale Only')}</Text>
                             </View>
                         </View>
                     </View>
@@ -133,7 +134,7 @@ class SearchFilters extends React.Component {
                             height={hp(8)}
                             width={'80%'}
                             style={styles.buttonStyles}
-                            title={'Apply'}
+                            title={I18n.t('Apply')}
                             titleColor={colors.appBlue}
                             bgColor={colors.AppGreenColor}
                             titleStyle={[styles.titleStyles]}

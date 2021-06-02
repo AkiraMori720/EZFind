@@ -15,6 +15,7 @@ import styles from "./Styles";
 import { connect } from 'react-redux'
 import firestore from '@react-native-firebase/firestore';
 import { sendPushNotification } from '../../utils/firebase'
+import I18n from "../../i18n";
 
 class ChatScreen extends React.Component {
 
@@ -141,7 +142,7 @@ class ChatScreen extends React.Component {
                         onLeftIconPress={() => this.props.navigation.goBack()}
                         leftIconPath={images.headerLeftBack}
                         lefticonSize={wp(5)}
-                        title={channel_info && channel_info.name || 'Unknown'}
+                        title={channel_info && channel_info.name || I18n.t('Unknown')}
                         bgColor={colors.AppGreenColor}
                     //rightIconOnePath={images.threeDots}
                     //rightIconSize={20}

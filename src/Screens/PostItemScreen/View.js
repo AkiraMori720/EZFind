@@ -21,6 +21,7 @@ import images from '../../Assets/Images/images';
 import colors from '../../Assets/Colors/colors';
 import styles from './Styles';
 import ImagePicker from 'react-native-image-crop-picker';
+import I18n from "../../i18n";
 
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -77,9 +78,9 @@ class PostItem extends React.Component {
         ActionSheet.showActionSheetWithOptions(
             {
                 options: [
-                    'Take Photo...',
-                    'Choose From Library...',
-                    'Cancel'
+                    I18n.t('Take_Photo'),
+                    I18n.t('Choose_From_Library'),
+                    I18n.t('Cancel')
                 ],
                 cancelButtonIndex: 2,
                 destructiveButtonIndex: 0,
@@ -213,7 +214,7 @@ class PostItem extends React.Component {
                         setTimeout(() => {
                             MessageBarManager.showAlert({
                                 title: '',
-                                message: 'Successfully created!',
+                                message: I18n.t('Successfully created'),
                                 alertType: 'success'
                             });
                             self.props.navigation.goBack()
@@ -252,7 +253,7 @@ class PostItem extends React.Component {
                         onLeftIconPress={() => this.props.navigation.goBack()}
                         leftIconPath={images.headerLeftBack}
                         lefticonSize={wp(5)}
-                        title={'Post Item'}
+                        title={I18n.t('Post Item')}
                         bgColor={colors.AppGreenColor}
                     />
                 </View>
@@ -270,7 +271,7 @@ class PostItem extends React.Component {
                             <View style={styles.titleContainer}>
                                 <AppInput
                                     height={hp(6)}
-                                    placeholder={'Name'}
+                                    placeholder={I18n.t('Name')}
                                     width={'100%'}
                                     colortextInput={colors.black}
                                     placeholderTextColor={colors.placeholder_text_color}
@@ -311,7 +312,7 @@ class PostItem extends React.Component {
                                         {
                                             category ?
                                                 <Text style={[styles.dropdownButtonText, { color: 'black' }]}>{category.name}</Text> :
-                                                <Text style={[styles.dropdownButtonText, { color: colors.placeholder_text_color }]}>Category</Text>
+                                                <Text style={[styles.dropdownButtonText, { color: colors.placeholder_text_color }]}>{I18n.t('Category')}</Text>
                                         }
                                         <Image source={images.ic_down} style={{ resizeMode: 'contain', width: 15, height: 15, tintColor: colors.AppGreenColor }} />
                                     </View>
@@ -340,14 +341,14 @@ class PostItem extends React.Component {
                                                         this.setState({ subcategory: subcategories[index] })
                                                 },
                                             );
-                                        } else alert("No subcategories")
+                                        } else alert(I18n.t("No subcategories"))
                                     }}>
                                     {/* //================================ Dropdown ======================================// */}
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '92%', alignItems: 'center', alignSelf: 'center' }}>
                                         {
                                             subcategory ?
                                                 <Text style={[styles.dropdownButtonText, { color: 'black' }]}>{subcategory.name}</Text> :
-                                                <Text style={[styles.dropdownButtonText, { color: colors.placeholder_text_color }]}>Subcategory</Text>
+                                                <Text style={[styles.dropdownButtonText, { color: colors.placeholder_text_color }]}>{I18n.t('Subcategory')}</Text>
                                         }
                                         <Image source={images.ic_down} style={{ resizeMode: 'contain', width: 15, height: 15, tintColor: colors.AppGreenColor }} />
                                     </View>
@@ -359,14 +360,14 @@ class PostItem extends React.Component {
                                 })
                             }}>
                                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                                    <Text style={[{ fontSize: 15, color: location && location.address ? colors.black : colors.placeholder_text_color }]}>{location && location.address ? location.address : 'Location'}</Text>
+                                    <Text style={[{ fontSize: 15, color: location && location.address ? colors.black : colors.placeholder_text_color }]}>{location && location.address ? location.address : I18n.t('Location')}</Text>
                                 </View>
                                 <Image source={images.ic_marker} style={{ width: 20, height: 20, resizeMode: 'contain', tintColor: colors.AppGreenColor }} />
                             </TouchableOpacity>
                             <View style={styles.DescripationContainer}>
                                 <AppInput
                                     height={hp(25)}
-                                    placeholder={'Description'}
+                                    placeholder={I18n.t('Description')}
                                     width={'100%'}
                                     colortextInput={colors.black}
                                     placeholderTextColor={colors.placeholder_text_color}
@@ -390,12 +391,12 @@ class PostItem extends React.Component {
 
                                 </View>
                                 <View style={styles.checkboxText}>
-                                    <Text style={styles.checkboxTextStyle}>Free curbside pick-up</Text>
+                                    <Text style={styles.checkboxTextStyle}>{I18n.t('Free_curbside_pick_up')}</Text>
                                 </View>
 
                             </View>
                             <View style={styles.mainText}>
-                                <Text>Messaging will be disabled, any user will be able to remove posting once item is removed and posting will be deleted after 7 days.</Text>
+                                <Text>{I18n.t('Messaging_will_be_disabled')}</Text>
 
                             </View>
 
@@ -406,12 +407,12 @@ class PostItem extends React.Component {
                                     <CheckBox value={!isFree} onChange={() => { this.setState({ isFree: !isFree }) }} />
                                 </View>
                                 <View style={styles.forSaleText}>
-                                    <Text style={styles.checkboxTextStyle}>For Sale</Text>
+                                    <Text style={styles.checkboxTextStyle}>{I18n.t('For Sale')}</Text>
                                 </View>
                                 <View style={styles.textInput}>
                                     <AppInput
                                         height={hp(6)}
-                                        placeholder={'Enter Price'}
+                                        placeholder={I18n.t('Enter Price')}
                                         width={'100%'}
                                         colortextInput={colors.black}
                                         placeholderTextColor={colors.placeholder_text_color}
@@ -428,7 +429,7 @@ class PostItem extends React.Component {
 
                             </View>
                             <View style={styles.mainText}>
-                                <Text>Users will be able to message you about this item. Transactions are managed outside of the app and EZFind is not responsible for conflict that may occur due to the transaction.</Text>
+                                <Text>{I18n.t('User_will_be_able_to_message_you_about_this_item')}</Text>
 
                             </View>
                             {/* //================================ Add Pic ======================================// */}
@@ -464,7 +465,7 @@ class PostItem extends React.Component {
                                             onPress={() => {
                                                 this.selectPhoto()
                                             }}>
-                                            <Text style={styles.addMorePicStyle}>Add more photo</Text>
+                                            <Text style={styles.addMorePicStyle}>{I18n.t('Add more photo')}</Text>
                                         </TouchableOpacity>
                                     </> :
                                     <TouchableOpacity style={[styles.addPic, { borderColor: validations.includes('photo') ? 'red' : colors.AppGreenColor }]}
@@ -475,7 +476,7 @@ class PostItem extends React.Component {
                                             <Image source={images.ic_add}
                                                 style={styles.imageStylesTag}
                                             />
-                                            <Text style={styles.textStyle}>Add Photo</Text>
+                                            <Text style={styles.textStyle}>{I18n.t('Add Photo')}</Text>
                                         </View>
                                     </TouchableOpacity>
                             }
@@ -484,7 +485,7 @@ class PostItem extends React.Component {
                             {/* //================================ At Least one Picture ======================================// */}
 
                             <View style={styles.textView}>
-                                <Text style={styles.picTextStyle}> Post must have at least one picture of item</Text>
+                                <Text style={styles.picTextStyle}> {I18n.t('Post_must_have_at_least_one_picture')}</Text>
 
                             </View>
                         </View>
@@ -496,7 +497,7 @@ class PostItem extends React.Component {
                                 height={hp(8)}
                                 width={'80%'}
                                 style={styles.buttonStyles}
-                                title={'Post Item'}
+                                title={I18n.t('Post Item')}
                                 titleColor={colors.appBlue}
                                 bgColor={colors.AppGreenColor}
                                 titleStyle={[styles.titleStyles]}

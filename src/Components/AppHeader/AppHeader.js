@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 //================================ Local Imported Files ======================================//
 
 import colors from '../../Assets/Colors/colors';
+import I18n from "../../i18n";
 
 
 export default class AppHeader extends Component {
@@ -36,7 +37,7 @@ export default class AppHeader extends Component {
                         { height: this.props.titleLogosize, width: this.props.titleLogosize } : { width: 30, height: 30 }}
                         source={this.props.titleLogoPath} />}
                     {this.props.title &&
-                        <Text style={[styles.title, { color: this.props.textColor || colors.white }]}>{this.props.title !== undefined ? this.props.title : 'Header'}</Text>}
+                        <Text style={[styles.title, { color: this.props.textColor || colors.white }]}>{this.props.title !== undefined ? this.props.title : I18n.t('Header')}</Text>}
                 </View>
                 <View style={styles.headerMenu} >
                     <TouchableOpacity style={[styles.headerMenu, { marginLeft: wp(7) }]} onPress={this.props.onRightIconTwoPress}>

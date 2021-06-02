@@ -17,6 +17,7 @@ import { calcCrow } from '../../utils/utils'
 import { getDistance } from 'geolib';
 import Loops from '../../Components/CommonFlatList/CommonFlatList';
 import moment from 'moment'
+import I18n from "../../i18n";
 
 const Radius = 5; //km
 const pin_radius = 0.4; //0.25mile
@@ -95,7 +96,7 @@ class MapScreen extends React.Component {
             onLeftIconPress={this.state.fromFind ? () => this.props.navigation.goBack() : () => this.props.navigation.openDrawer()}
             leftIconPath={this.state.fromFind ? images.headerLeftBack : images.ic_hamburger_menu}
             lefticonSize={wp(5)}
-            title={'Items Near Me'}
+            title={I18n.t('Items Near Me')}
             bgColor={colors.AppGreenColor}
           />
         </View>
@@ -175,7 +176,7 @@ class MapScreen extends React.Component {
                 //     }}>
                 //       <View style={{ minWidth: 100, margin: 10 }}>
                 //         <Text style={{ fontSize: 20, color: 'black' }}>{item.title}</Text>
-                //         <Text style={{ fontSize: 15, color: colors.AppGreenColor }}>{item.price && item.price > 0 ? `$${item.price}` : 'Free'}</Text>
+                //         <Text style={{ fontSize: 15, color: colors.AppGreenColor }}>{item.price && item.price > 0 ? `$${item.price}` :  I18n.t('Free')}</Text>
                 //         <Text style={{ fontSize: 12, color: 'gray' }}>{item.description}</Text>
                 //       </View>
                 //     </Callout>
@@ -210,8 +211,8 @@ class MapScreen extends React.Component {
                 product={selProduct}
                 image={selProduct.photo && selProduct.photo.length > 0 ? selProduct.photo[0] : ''}
                 title={selProduct.title}
-                price={selProduct.price && selProduct.price > 0 ? `$${selProduct.price}` : 'Free'}
-                dayTime={`Posted ${moment(selProduct.createdat).fromNow()}`}
+                price={selProduct.price && selProduct.price > 0 ? `$${selProduct.price}` : I18n.t('Free')}
+                dayTime={I18n.t('Posted') + `${moment(selProduct.createdat).fromNow()}`}
                 ml={selProduct.ml}
                 description={selProduct.description}
                 location={selProduct.location && selProduct.location.address}
@@ -225,7 +226,7 @@ class MapScreen extends React.Component {
             <AppInput
               paddingLeft={'2%'}
               height={hp(6)}
-              placeholder={'Location'}
+              placeholder={I18n.t('Location')}
               width={'92%'}
               colortextInput={colors.black}
               placeholderTextColor={colors.placeholder_text_color}

@@ -14,6 +14,7 @@ import images from '../../../../Assets/Images/images';
 import styles from './Styles';
 import auth from '@react-native-firebase/auth';
 import Spinner from 'react-native-loading-spinner-overlay';
+import I18n from "../../../../i18n";
 
 class ResetPassword extends React.Component {
   ShowAlert = (title, message) => {
@@ -37,19 +38,19 @@ class ResetPassword extends React.Component {
           if (res == null) {
             this.setState({ showAlert: true, email: '' })
             this.props.navigation.goBack()
-            alert('sent reset email!');
+            alert(I18n.t('sent reset email'));
           }
         }, 100)
       }).catch(error => {
         this.setState({ spinner: false })
         setTimeout(() => {
           if (error.code === 'auth/invalid-email') {
-            alert('Please enter valid email id');
+            alert(I18n.t('Please enter valid email'));
             return
           }
 
           if (error.code === 'auth/user-not-found') {
-            alert('There is no user corresponding to the email address.');
+            alert(I18n.t('There is no user corresponding to the email address'));
             return
           }
 
@@ -57,7 +58,7 @@ class ResetPassword extends React.Component {
         }, 100)
       })
     } else {
-      alert('Please enter email address.')
+      alert(I18n.t('Please enter email address'))
     }
   };
   render() {
@@ -94,7 +95,7 @@ class ResetPassword extends React.Component {
           <AppInput
             height={hp(6)}
             borderRadius={wp(7)}
-            placeholder={'Email'}
+            placeholder={I18n.t('Email')}
             width={'80%'}
             marginTop={5}
             onRightIconPress={() => this.togglePassword()}
@@ -111,8 +112,7 @@ class ResetPassword extends React.Component {
           />
           <View style={styles.textContainer}>
             <Text style={styles.textStyle}>
-              Input the email used to create your account. We will send you a
-              link to reset your password.
+              {I18n.t('reset_input_email_description')}
             </Text>
           </View>
         </View>
@@ -122,7 +122,7 @@ class ResetPassword extends React.Component {
             height={hp(8)}
             width={'80%'}
             style={styles.buttonStyles}
-            title={'RESET PASSWORD'}
+            title={I18n.t('RESET PASSWORD')}
             bgColor={colors.AppGreenColor}
             titleColor={colors.dark_red}
             titleStyle={[styles.titleStyles]}

@@ -17,6 +17,7 @@ import { calcCrow } from '../../utils/utils'
 import { getDistance } from 'geolib';
 import Loops from '../../Components/CommonFlatList/CommonFlatList';
 import moment from 'moment'
+import I18n from "../../i18n";
 
 const Radius = 5; //km
 const pin_radius = 0.4; //0.25mile
@@ -47,7 +48,7 @@ class MapScreen extends React.Component {
             onLeftIconPress={()=>this.props.navigation.goBack()}
             leftIconPath={images.headerLeftBack}
             lefticonSize={wp(5)}
-            title={'Product'}
+            title={I18n.t('Product')}
             bgColor={colors.AppGreenColor}
           />
         </View>
@@ -82,8 +83,8 @@ class MapScreen extends React.Component {
                 product={product}
                 image={product.photo && product.photo.length > 0 ? product.photo[0] : ''}
                 title={product.title}
-                price={product.price && product.price > 0 ? `$${product.price}` : 'Free'}
-                dayTime={`Posted ${moment(product.createdat).fromNow()}`}
+                price={product.price && product.price > 0 ? `$${product.price}` : I18n.t('Free')}
+                dayTime={I18n.t('Posted') + `${moment(product.createdat).fromNow()}`}
                 ml={product.ml}
                 description={product.description}
                 location={product.location && product.location.address}

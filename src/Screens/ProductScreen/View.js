@@ -17,6 +17,7 @@ import { connect } from 'react-redux'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { sendPushNotification } from '../../utils/firebase'
 import Overlay from 'react-native-modal-overlay';
+import I18n from "../../i18n";
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 const { width, height } = Dimensions.get('window')
 class ProductScreen extends React.Component {
@@ -132,7 +133,7 @@ class ProductScreen extends React.Component {
                         setTimeout(() => {
                             MessageBarManager.showAlert({
                                 title: '',
-                                message: 'Successfully removed!',
+                                message: I18n.t('Successfully removed'),
                                 alertType: 'success'
                             });
                             self.props.navigation.goBack()
@@ -151,7 +152,7 @@ class ProductScreen extends React.Component {
                         setTimeout(() => {
                             MessageBarManager.showAlert({
                                 title: '',
-                                message: 'Successfully added!',
+                                message: I18n.t('Successfully added'),
                                 alertType: 'success'
                             });
                             self.props.navigation.goBack()
@@ -222,12 +223,12 @@ class ProductScreen extends React.Component {
 
                                 <View style={styles.maintitleText}>
                                     <Text style={styles.maintitleTextStyle}>{product && product.title}</Text>
-                                    <Text style={styles.subtitleTextStyle}>Category: {product && product.categoryName} -> {product && product.subcategoryName}</Text>
+                                    <Text style={styles.subtitleTextStyle}>{I18n.t('Category')}: {product && product.categoryName} -> {product && product.subcategoryName}</Text>
                                 </View>
                                 {/* //================================ Price Tag ======================================// */}
 
                                 <View style={styles.priceText}>
-                                    <Text style={styles.priceTextStyle}>{product && product.price && product.price > 0 ? `$${product.price}` : 'Free'}</Text>
+                                    <Text style={styles.priceTextStyle}>{product && product.price && product.price > 0 ? `$${product.price}` : I18n.t('Free')}</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -237,7 +238,7 @@ class ProductScreen extends React.Component {
                     <View style={styles.bottomContainer}>
 
                         <View style={styles.descrpitionContainer}>
-                            <Text style={styles.descrpitionStyleContainer}>Description</Text>
+                            <Text style={styles.descrpitionStyleContainer}>{I18n.t('Description')}</Text>
                         </View>
                         <View style={styles.SubDescrpitionContainer}>
                             <Text style={styles.SubDescrpitionStyleContainer}>{product && product.description}</Text>
@@ -260,18 +261,18 @@ class ProductScreen extends React.Component {
                                 height={hp(8)}
                                 width={'80%'}
                                 style={styles.buttonStyles}
-                                title={'Taken'}
+                                title={I18n.t('Taken')}
                                 bgColor={colors.AppGreenColor}
                                 titleColor={colors.dark_red}
                                 titleStyle={[styles.titleStyles]}
                                 onPress={() => {
                                     Alert.alert(
-                                        'Confirm',
-                                        `Are you sure to take?`,
+                                        I18n.t('Confirm'),
+                                        I18n.t('Are you sure to take'),
                                         [
-                                            { text: 'No', onPress: () => { }, style: 'cancel' },
+                                            { text: I18n.t('No'), onPress: () => { }, style: 'cancel' },
                                             {
-                                                text: 'Yes', onPress: () => {
+                                                text: I18n.t('Yes'), onPress: () => {
                                                     this.setState({ spinner: true })
                                                     const profile_doc = firestore().collection('shopping_items').doc(product.key)
                                                     profile_doc.update({
@@ -280,10 +281,10 @@ class ProductScreen extends React.Component {
                                                         this.setState({ spinner: false })
                                                         MessageBarManager.showAlert({
                                                             title: '',
-                                                            message: 'Successfully taken!',
+                                                            message: I18n.t('Successfully taken'),
                                                             alertType: 'success'
                                                         });
-                                                        sendPushNotification(product.createdby, product.title, 'Your item is taken!')
+                                                        sendPushNotification(product.createdby, product.title, I18n.t('Your item is taken'))
                                                         this.props.navigation.goBack()
                                                     })
                                                 }
@@ -301,18 +302,18 @@ class ProductScreen extends React.Component {
                                 height={hp(8)}
                                 width={'80%'}
                                 style={styles.buttonStyles}
-                                title={'Confirm Pick-up'}
+                                title={I18n.t('Confirm Pick-up')}
                                 bgColor={colors.AppGreenColor}
                                 titleColor={colors.dark_red}
                                 titleStyle={[styles.titleStyles]}
                                 onPress={() => {
                                     Alert.alert(
-                                        'Confirm',
-                                        `Are you sure?`,
+                                        I18n.t('Confirm'),
+                                        I18n.t(`Are you sure`),
                                         [
-                                            { text: 'No', onPress: () => { }, style: 'cancel' },
+                                            { text: I18n.t('No'), onPress: () => { }, style: 'cancel' },
                                             {
-                                                text: 'Yes', onPress: () => {
+                                                text: I18n.t('Yes'), onPress: () => {
                                                     this.setState({ spinner: true })
                                                     const profile_doc = firestore().collection('shopping_items').doc(product.key)
                                                     profile_doc.update({
@@ -322,7 +323,7 @@ class ProductScreen extends React.Component {
                                                         this.setState({ spinner: false })
                                                         MessageBarManager.showAlert({
                                                             title: '',
-                                                            message: 'Successfully confirm!',
+                                                            message: I18n.t('Successfully confirm'),
                                                             alertType: 'success'
                                                         });
                                                         //sendPushNotification(product.createdby, product.title, 'Your item is taken!')

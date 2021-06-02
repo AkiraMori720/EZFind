@@ -5,6 +5,7 @@ import { Divider, SocialIcon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import colors from '../../Assets/Colors/colors';
+import I18n from "../../i18n";
 
 
 
@@ -19,14 +20,14 @@ class MyModel extends React.Component {
                     <View style={styles.mainModelContainer} >
                         <View style={styles.ModelTitleContainer}>
                             <Text style={styles.ModelTitleTextContainer}>
-                                Sign Up
+                                {I18n.t('Sign Up')}
                             </Text>
                         </View>
                         <View style={styles.ModelMessageContainer}>
                             <Text style={styles.modelText}>
-                                By Signing Up, you agree with the <Text style={styles.ModelMessageTextColorContainer} onPress={this.props.onPressTerm}>
-                                    Terms and Conditions
-                            </Text> and <Text style={styles.ModelMessageTextColorContainer} onPress={this.props.onPressPrivacy}>Privacy Policy </Text>
+                                {I18n.t('By_signing_up_you_agree_with_the')} <Text style={styles.ModelMessageTextColorContainer} onPress={this.props.onPressTerm}>
+                                {I18n.t('Terms and Conditions')}
+                            </Text> {I18n.t('and')} <Text style={styles.ModelMessageTextColorContainer} onPress={this.props.onPressPrivacy}>{I18n.t('Privacy Policy')} </Text>
                             </Text>
 
                         </View>
@@ -34,7 +35,7 @@ class MyModel extends React.Component {
                             <View style={styles.okViewContainer}>
                                 <TouchableOpacity onPress={this.props.onPressAgree} >
                                     <Text style={styles.AgreeTextStyleContainer}>
-                                        AGREE
+                                        {I18n.t('AGREE')}
                                     </Text>
                                 </TouchableOpacity>
 
@@ -42,7 +43,7 @@ class MyModel extends React.Component {
                             <View style={styles.CancelViewContainer}>
                                 <TouchableOpacity onPress={this.props.onPressCancel}>
                                     <Text style={styles.AgreeTextStyleContainer}>
-                                        CANCEL
+                                        {I18n.t('CANCEL')}
                                     </Text>
                                 </TouchableOpacity>
                             </View>

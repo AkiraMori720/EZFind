@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, Image, Platform, TouchableOpacity, L
 
 import styles from './styles'
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import I18n from "../../i18n";
 class RateApp extends React.Component {
 
     constructor(props) {
@@ -10,8 +11,7 @@ class RateApp extends React.Component {
 
         this.state = {
 
-            dummyText: 'If you love our app we would appreciate you if you take a couple' +
-                ' of seconds to rate us  in the app market!',
+            dummyText: I18n.t('If_you_love_our_app_we_would_appreciate_you'),
 
         }
     }
@@ -27,7 +27,7 @@ class RateApp extends React.Component {
 
                     <View style={styles.topTitle}>
                         <Text style={styles.textRateApp}>
-                            Rate the App
+                            {I18n.t('Rate App')}
                         </Text>
                     </View>
                     <View style={styles.textDescriptionContainer}>
@@ -52,12 +52,12 @@ class RateApp extends React.Component {
                             onPress={() => {
                                 Linking.openURL(Platform.OS == 'ios' ? 'https://apps.apple.com/us/app/ez-find/id1524643683' : 'https://play.google.com/store/apps/details?id=com.brainyapps.ezfind')
                             }}>
-                            <Text style={styles.submitBurron}>RATE APP</Text>
+                            <Text style={styles.submitBurron}>{I18n.t('RATE APP')}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={this.props.onPressLater}
                             style={styles.laterContainer}>
-                            <Text style={styles.submitBurron}>LATER</Text>
+                            <Text style={styles.submitBurron}>{I18n.t('LATER')}</Text>
                         </TouchableOpacity>
 
                     </View>

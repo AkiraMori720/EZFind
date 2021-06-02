@@ -13,6 +13,7 @@ import axios, { CancelToken } from 'axios';
 import Events from 'react-native-simple-events';
 import debounce from '../utils/debounce';
 import { separateAddress } from '../../../../../utils/utils';
+import I18n from "../../../../../i18n";
 
 const AUTOCOMPLETE_URL =
     'https://maps.googleapis.com/maps/api/place/autocomplete/json';
@@ -44,7 +45,7 @@ export default class AutoCompleteInput extends React.Component {
 
     _abortRequest = () => {
         if (this.source) {
-            this.source.cancel('Operation canceled by the user.');
+            this.source.cancel(I18n.t('Operation canceled by the user'));
         }
     };
 
@@ -137,11 +138,11 @@ export default class AutoCompleteInput extends React.Component {
                     <TextInput
                         ref={input => (this._input = input)}
                         value={
-                            this.state.loading ? 'Loading...' : this.state.text
+                            this.state.loading ? I18n.t('Loading') : this.state.text
                         }
                         style={styles.textInput}
                         underlineColorAndroid={'transparent'}
-                        placeholder={'Search'}
+                        placeholder={I18n.t('Search')}
                         onFocus={this._onFocus}
                         onBlur={this._onBlur}
                         onChangeText={this._onChangeText}

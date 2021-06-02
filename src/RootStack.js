@@ -46,6 +46,8 @@ import colors from './Assets/Colors/colors';
 import NewAddress from './Screens/NewAddress/NewAddress'
 import MyStore from './Screens/MyStore/View'
 import PostItemEdit from './Screens/PostItemEdit/View'
+import I18n from "./i18n";
+import AsyncStorage from "@react-native-community/async-storage";
 
 //================================ Drawer Function ======================================//
 function CustomDrawerContent(props) {
@@ -74,39 +76,39 @@ function CustomDrawerContent(props) {
 
                 <DrawerItem
                     style={styles.drawerItemStyles}
-                    label={() => <Text style={styles.drawerItemLabelText} >{"Marketplace"}</Text>}
+                    label={() => <Text style={styles.drawerItemLabelText} >{I18n.t("Marketplace")}</Text>}
                     icon={() => <Image source={images.ic_social_feed} style={styles.drawerItemImage} />}
                     onPress={() => props.navigation.navigate('EZScreen')} />
                 {
                     //profile && profile.type == 'seller' &&
                     <DrawerItem
                         style={styles.drawerItemStyles}
-                        label={() => <Text style={styles.drawerItemLabelText} >{"My Items"}</Text>}
+                        label={() => <Text style={styles.drawerItemLabelText} >{I18n.t("My Items")}</Text>}
                         icon={() => <Image source={images.ic_transaction} style={styles.drawerItemImage} />}
                         onPress={() => props.navigation.navigate('MyStore')} />
                 }
                 <DrawerItem
                     style={styles.drawerItemStyles}
-                    label={() => <Text style={styles.drawerItemLabelText} >{"Favorites"}</Text>}
+                    label={() => <Text style={styles.drawerItemLabelText} >{I18n.t("Favorites")}</Text>}
                     icon={() => <Image source={images.ic_heart} style={styles.drawerItemImage} />}
                     onPress={() => props.navigation.navigate('FavoriteScreen')} />
 
                 <DrawerItem
                     style={styles.drawerItemStyles}
-                    label={() => <Text style={styles.drawerItemLabelText} >{"Map"}</Text>}
+                    label={() => <Text style={styles.drawerItemLabelText} >{I18n.t("Map")}</Text>}
                     icon={() => <Image source={images.ic_map} style={styles.drawerItemImage} />}
                     onPress={() => props.navigation.navigate('MapScreen', { fromFind: false })} />
 
                 <DrawerItem
                     style={styles.drawerItemStyles}
-                    label={() => <Text style={styles.drawerItemLabelText} >{"Messages"}</Text>}
+                    label={() => <Text style={styles.drawerItemLabelText} >{I18n.t("Messages")}</Text>}
                     icon={() => <Image source={images.ic_email} style={styles.drawerItemImage} />}
                     onPress={() => props.navigation.navigate('MessagesScreen')} />
 
 
                 <DrawerItem
                     style={styles.drawerItemStyles}
-                    label={() => <Text style={styles.drawerItemLabelText} >{"Settings"}</Text>}
+                    label={() => <Text style={styles.drawerItemLabelText} >{I18n.t("Settings")}</Text>}
                     icon={() => <Image source={images.ic_settings} style={styles.drawerItemImage} />}
                     onPress={() => props.navigation.navigate('SettingsScreen')} />
 
@@ -131,25 +133,26 @@ function CustomDrawerContent(props) {
                 /> */}
 
                 <DrawerItem style={[styles.drawerItemStylesLogin, { backgroundColor: colors.AppRedColor, marginTop: wp(5) }]}
-                    label={() => <Text style={[styles.drawerItemLabelText, { color: colors.bright_red, fontWeight: 'bold' }]}>{"Logout"}</Text>}
+                    label={() => <Text style={[styles.drawerItemLabelText, { color: colors.bright_red, fontWeight: 'bold' }]}>{I18n.t("Logout")}</Text>}
                     icon={() => <Image source={images.ic_logout_settings} style={[styles.drawerItemImage, { tintColor: colors.bright_red }]} />}
                     onPress={() => {
                         Alert.alert(
-                            "Logout",
-                            "Are you sure to logout?",
+                            I18n.t("Logout"),
+                            I18n.t("Are you sure to logout"),
                             [
                                 {
-                                    text: "Cancel",
+                                    text: I18n.t("Cancel"),
                                     onPress: () => console.log("Cancel Pressed"),
                                     style: "cancel"
                                 },
                                 {
-                                    text: "OK", onPress: () => {
+                                    text: I18n.t("OK"), onPress: () => {
 
                                         try {
                                             auth()
                                                 .signOut()
-                                                .then(() => {
+                                                .then(async () => {
+                                                    await AsyncStorage.removeItem('language');
                                                     store.dispatch(updateUser())
                                                     props.navigation.dispatch(
                                                         CommonActions.reset({

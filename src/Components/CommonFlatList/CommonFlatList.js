@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Image, SafeAreaView, TouchableOpacit
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import images from '../../Assets/Images/images';
 import colors from '../../Assets/Colors/colors';
+import I18n from "../../i18n";
 
 export default class Loops extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export default class Loops extends React.Component {
         return (
             <TouchableOpacity style={[styles.container, product?.taken ? { backgroundColor: '#DDD' } : {}]} onPress={() => {
                 if (product?.taken) {
-                    alert('This item is already taken.')
+                    alert(I18n.t('This item is already taken'))
                     return
                 }
                 this.props.onPress()

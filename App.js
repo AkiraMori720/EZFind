@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import RootStack from './src/RootStack';
 import createStore from './src/reducers'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import auth from '@react-native-firebase/auth';
-import { updateUser, updateUserProfile } from './src/reducers/user'
+import {updateUser, updateUserProfile} from './src/reducers/user'
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-community/async-storage';
-import { STORAGE_REMEMBER } from './src/constant'
-import messaging, { AuthorizationStatus } from '@react-native-firebase/messaging';
-import { Platform } from 'react-native'
+import messaging from '@react-native-firebase/messaging';
+import {Platform} from 'react-native'
+import I18n from "./src/i18n";
+import moment from "moment";
+
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -17,9 +19,15 @@ export const store = createStore()
 export default class App extends Component {
     constructor() {
         super();
-        this.initialize = false
+        this.initialize = false;
     }
-    componentDidMount() {
+    async componentDidMount() {
+        const lang = await AsyncStorage.getItem('language');
+        if(lang){
+            I18n.locale = lang;
+            moment.locale(lang);
+        }
+
         this.subscriber = auth().onAuthStateChanged(async (user) => {
             if (user) {
                 if (!this.initialize) {

@@ -14,6 +14,7 @@ import AppHeader from '../../Components/AppHeader/AppHeader';
 import colors from '../../Assets/Colors/colors';
 import images from '../../Assets/Images/images';
 import styles from './Styles';
+import I18n from "../../i18n";
 
 class MessagesScreen extends React.Component {
   constructor(props) {
@@ -80,7 +81,7 @@ class MessagesScreen extends React.Component {
       return (
         <MessagesFlatList
           leftImage={item.channel_info.avatar}
-          title={item.channel_info.name || 'Unknown'}
+          title={item.channel_info.name || I18n.t('Unknown')}
           badge={item.unread && item.unread[user.uid]}
           onPress={() => this.onNavigate(item, item.channel_info)}
         />
@@ -106,7 +107,7 @@ class MessagesScreen extends React.Component {
             onLeftIconPress={() => this.props.navigation.openDrawer()}
             leftIconPath={images.ic_hamburger_menu}
             lefticonSize={wp(5)}
-            title={'Messages'}
+            title={I18n.t('Messages')}
             bgColor={colors.AppGreenColor}
           />
         </View>
@@ -121,7 +122,7 @@ class MessagesScreen extends React.Component {
                     keyExtractor={item => item.key + ''}
                     data={channels}
                     renderItem={({ item }) => this.messageList(item)}
-                  /> : <Text style={{ fontSize: 14, color: 'gray', marginTop: 10, alignSelf: 'center' }}>No channels</Text>
+                  /> : <Text style={{ fontSize: 14, color: 'gray', marginTop: 10, alignSelf: 'center' }}>{I18n.t('No channels')}</Text>
               }
             </>
           }

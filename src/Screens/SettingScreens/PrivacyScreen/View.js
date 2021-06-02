@@ -12,6 +12,7 @@ import images from '../../../Assets/Images/images';
 import colors from '../../../Assets/Colors/colors';
 import styles from './Styles'
 import HTML from 'react-native-render-html';
+import I18n from "../../../i18n";
 class PrivacyScreen extends React.Component {
 
     constructor(props) {
@@ -45,7 +46,7 @@ class PrivacyScreen extends React.Component {
                         headerHeight='100%'
                         leftIconPath={images.headerLeftBack}
                         lefticonSize={wp(5)}
-                        title={'PRIVACY POLICY'}
+                        title={I18n.t('PRIVACY POLICY')}
                         titleFontSize={wp(5)}
                         bgColor={colors.AppGreenColor}
                         onLeftIconPress={() => {

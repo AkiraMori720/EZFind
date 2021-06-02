@@ -23,7 +23,6 @@ import SettingLang from "../../../Components/SettingLang";
 import firestore from "@react-native-firebase/firestore";
 import AsyncStorage from "@react-native-community/async-storage";
 import I18n from "../../../i18n";
-import moment from "moment";
 
 class SettingsScreen extends React.Component {
     constructor(props) {
@@ -116,7 +115,6 @@ class SettingsScreen extends React.Component {
                 .then(async (res) => {
                     await AsyncStorage.setItem('language', lang);
                     I18n.locale = lang;
-                    moment.locale(lang);
                     profile_doc.get().then(res => {
                         console.log("upated profile:", res.data())
                         this.props.updateUserProfile(res.data())

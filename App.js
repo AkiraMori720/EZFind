@@ -9,7 +9,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import {Platform} from 'react-native'
 import I18n from "./src/i18n";
-import moment from "moment";
 
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
@@ -25,7 +24,6 @@ export default class App extends Component {
         const lang = await AsyncStorage.getItem('language');
         if(lang){
             I18n.locale = lang;
-            moment.locale(lang);
         }
 
         this.subscriber = auth().onAuthStateChanged(async (user) => {

@@ -21,7 +21,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {STORAGE_REMEMBER} from '../../../../constant'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import I18n, {LANGUAGES} from '../../../../i18n';
-import moment from "moment";
 
 class LoginScreen extends React.Component {
     constructor(props) {
@@ -88,7 +87,6 @@ class LoginScreen extends React.Component {
                                         await AsyncStorage.setItem('language', user_data.language);
                                         const lang = LANGUAGES.find(l => l.value.toLowerCase() === user_data.language)?.value || user_data.language;
                                         I18n.locale = lang;
-                                        moment.locale(lang);
                                     }
                                     this.props.updateUser(res.user._user)
                                     this.setState({ spinner: false })

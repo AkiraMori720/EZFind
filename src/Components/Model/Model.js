@@ -20,7 +20,7 @@ class MyModel extends React.Component {
                     <View style={styles.mainModelContainer} >
                         <View style={styles.ModelTitleContainer}>
                             <Text style={styles.ModelTitleTextContainer}>
-                                {I18n.t('Sign Up')}
+                                {I18n.t('SIGN UP')}
                             </Text>
                         </View>
                         <View style={styles.ModelMessageContainer}>

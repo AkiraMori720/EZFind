@@ -9,8 +9,8 @@ export const LANGUAGES = [
 	},
 	{
 		label: 'Español',
-		value: 'sp',
-		file: require('./locales/sp').default
+		value: 'es-ES',
+		file: require('./locales/es-ES').default
 	}
 ];
 
@@ -20,7 +20,7 @@ const translations = LANGUAGES.reduce((ret, item) => {
 }, {});
 
 i18n.translations = translations;
-i18n.fallbacks = false;
+i18n.fallbacks = true;
 
 const defaultLanguage = { languageTag: 'en', isRTL: false };
 const { languageTag, isRTL } = defaultLanguage;

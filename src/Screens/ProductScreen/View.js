@@ -18,8 +18,12 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { sendPushNotification } from '../../utils/firebase'
 import Overlay from 'react-native-modal-overlay';
 import I18n from "../../i18n";
+import {calcCrow} from "../../utils/utils";
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 const { width, height } = Dimensions.get('window')
+
+const nearRadius = 100; //feet
+
 class ProductScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +36,8 @@ class ProductScreen extends React.Component {
             spinner: false,
             photoIndex: 0,
             modalShow: false,
-            imageIndex: 0
+            imageIndex: 0,
+            isNear: false
         };
     }
     componentDidMount() {
@@ -43,9 +48,18 @@ class ProductScreen extends React.Component {
                 .get()
                 .then((querySnapshot) => {
                     this.setState({ profile: querySnapshot.data() })
-                })
+                });
+        }
+        if(this.state.product && this.state.product.location && this.props.location){
+            const { latitude, longitude } = this.props.location;
+            const distance = calcCrow(latitude, longitude, this.state.product.location.latitude, this.state.product.location.longitude) * 5280;
+
+            if(distance < nearRadius){
+                this.setState({isNear: true});
+            }
         }
     }
+
     createChannel() {
         const { user, profile } = this.props
         const target_profile = this.state.profile
@@ -162,7 +176,7 @@ class ProductScreen extends React.Component {
         }
     }
     render() {
-        const { product, photoIndex } = this.state
+        const { product, photoIndex, isNear } = this.state
 
         const photo = product && product.photo.length > photoIndex ? product.photo[photoIndex] : ''
         const { carts, user } = this.props
@@ -255,7 +269,7 @@ class ProductScreen extends React.Component {
                     </View>
                     {/* //================================ Button ======================================// */}
                     {
-                        (user.uid != this.state.uid) && (product.taken != user.uid) &&
+                        (user.uid != this.state.uid) && (product.taken != user.uid) && isNear &&
                         <View style={styles.buttonContainer}>
                             <Button
                                 height={hp(8)}
@@ -396,7 +410,8 @@ class ProductScreen extends React.Component {
 const mapStateToProps = state => ({
     user: state.user.user,
     profile: state.user.profile,
-    carts: state.user.carts
+    carts: state.user.carts,
+    location: state.user.location
 })
 
 const mapDispatchToProps = {

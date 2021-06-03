@@ -147,5 +147,6 @@ export default {
 	'SAVE': 'SAVE',
 	'Listing': 'Listing',
 	'Search Filters': 'Search Filters',
-	'Filter By': 'Filter By'
+	'Filter By': 'Filter By',
+	'Status_Taken': 'Status: Taken',
 };

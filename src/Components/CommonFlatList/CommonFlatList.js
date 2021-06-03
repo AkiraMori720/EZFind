@@ -30,7 +30,7 @@ export default class Loops extends React.Component {
                             <Text style={styles.title}>{this.props.title}</Text>
                             <Text style={styles.price}>{this.props.price} </Text>
                             {
-                                product?.taken ? <Text style={[styles.title, { fontSize: 10, paddingTop: 0, color: 'red' }]}>{'Status: Taken'}</Text> : null
+                                product?.taken ? <Text style={[styles.title, { fontSize: 10, paddingTop: 0, color: 'red' }]}>{I18n.t('Status_Taken')}</Text> : null
                             }
                             <Text style={styles.postedText}>{this.props.dayTime}</Text>
                         </View>

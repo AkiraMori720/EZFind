@@ -19,7 +19,7 @@ import Loops from '../../Components/CommonFlatList/CommonFlatList';
 import moment from 'moment'
 import I18n from "../../i18n";
 
-const Radius = 5; //km
+const Radius = 20; //mile
 const pin_radius = 0.4; //0.25mile
 
 class MapScreen extends React.Component {

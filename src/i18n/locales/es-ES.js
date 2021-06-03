@@ -148,4 +148,5 @@ export default {
 	'Listing': 'Listado',
 	'Search Filters': 'Buscar Filtros',
 	'Filter By': 'Filtrar por',
+	'Status_Taken': 'Estado: Tomado',
 };

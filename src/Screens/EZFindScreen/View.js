@@ -36,22 +36,61 @@ class EZScreen extends React.Component {
                 this.requestLocation();
             }, 50)
         })
+        this.init();
+    }
+    componentWillUnmount() {
+        this?.subscriber && this.subscriber()
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const{ profile } = this.props;
+        if(profile && profile.language !== prevProps.profile.language){
+            this.init();
+        }
+    }
+
+    init = (parent = null) => {
+        const { profile, selCategory } = this.props;
+        console.log('profile', profile);
+        if(this.subscriber){
+            this.subscriber();
+        }
+
+        this.setState({ loading: true });
         this.subscriber = firestore()
             .collection('categories')
             .onSnapshot((querySnapshot) => {
                 const categories = [];
                 querySnapshot && querySnapshot.forEach(documentSnapshot => {
+                    const category = documentSnapshot.data();
                     categories.push({
-                        ...documentSnapshot.data(),
+                        ...category,
                         key: documentSnapshot.id,
+                        name: (profile && profile.language === 'es-ES' && category.sp_name)?category.sp_name:category.name
                     });
                 });
                 this.setState({ categories, loading: false })
             });
-        console.log('locale', I18n.locale);
-    }
-    componentWillUnmount() {
-        this?.subscriber && this.subscriber()
+
+        const parentCategory = parent || selCategory;
+        if(parentCategory){
+            firestore()
+                .collection('categories')
+                .doc(parentCategory.key)
+                .collection('subcategories')
+                .get()
+                .then((querySnapshot) => {
+                    const subcategories = [];
+                    querySnapshot && querySnapshot.forEach(documentSnapshot => {
+                        const subCategory = documentSnapshot.data();
+                        subcategories.push({
+                            ...subCategory,
+                            key: documentSnapshot.id,
+                            name: (profile.language === 'es-ES' && subCategory.sp_name)?subCategory.sp_name:subCategory.name
+                        });
+                    });
+                    this.setState({ selCategory: parentCategory, subcategories, loading: false, pageIndex: 1 })
+                });
+        }
     }
     async requestLocation() {
         if (Platform.OS == 'android') {
@@ -109,22 +148,7 @@ class EZScreen extends React.Component {
                 title={item.name}
                 onPress={() => {
                     if (parent) {
-                        this.setState({ loading: true })
-                        firestore()
-                            .collection('categories')
-                            .doc(item.key)
-                            .collection('subcategories')
-                            .get()
-                            .then((querySnapshot) => {
-                                const subcategories = [];
-                                querySnapshot && querySnapshot.forEach(documentSnapshot => {
-                                    subcategories.push({
-                                        ...documentSnapshot.data(),
-                                        key: documentSnapshot.id,
-                                    });
-                                });
-                                this.setState({ selCategory: item, subcategories, loading: false, pageIndex: 1 })
-                            });
+                        this.init(item);
                     } else {
                         this.props.navigation.navigate("Listing", { subcategory: item, category: this.state.selCategory, subcategories: this.state.subcategories })
                     }

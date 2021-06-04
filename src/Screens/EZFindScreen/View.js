@@ -43,7 +43,7 @@ class EZScreen extends React.Component {
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         const{ profile } = this.props;
-        if(profile && profile.language !== prevProps.profile.language){
+        if(profile && prevProps.profile && profile.language !== prevProps.profile.language){
             this.init();
         }
     }

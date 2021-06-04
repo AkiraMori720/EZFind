@@ -47,6 +47,7 @@ class PostItem extends React.Component {
         };
     }
     componentDidMount() {
+        const { profile } = this.props;
         const { category } = this.state
         this.filters_subscriber = firestore()
             .collection('filters')
@@ -65,16 +66,19 @@ class PostItem extends React.Component {
             .onSnapshot((querySnapshot) => {
                 const categories = [];
                 querySnapshot && querySnapshot.forEach(documentSnapshot => {
+                    const doc = documentSnapshot.data();
                     if (typeof category == 'string' && documentSnapshot.id == category) {
                         this.state.category = {
-                            ...documentSnapshot.data(),
+                            ...doc,
                             key: documentSnapshot.id,
+                            name: (profile && profile.language === 'es-ES' && doc.sp_name)?doc.sp_name:doc.name
                         }
                         this.selectCategory(this.state.category)
                     }
                     categories.push({
                         ...documentSnapshot.data(),
                         key: documentSnapshot.id,
+                        name: (profile && profile.language === 'es-ES' && doc.sp_name)?doc.sp_name:doc.name
                     });
                 });
                 this.setState({ categories })
@@ -146,6 +150,7 @@ class PostItem extends React.Component {
 
     };
     selectCategory(category) {
+        const { profile } = this.props;
         this.setState({ category, collapsed_cate: false })
         this.subcategories_subscriber && this.subcategories_subscriber()
         console.log("#category", category)
@@ -157,16 +162,19 @@ class PostItem extends React.Component {
 
                 const subcategories = [];
                 querySnapshot && querySnapshot.forEach(documentSnapshot => {
+                    const doc = documentSnapshot.data();
                     if (typeof subcategory == 'string' && documentSnapshot.id == subcategory) {
                         this.state.subcategory = {
-                            ...documentSnapshot.data(),
+                            ...doc,
                             key: documentSnapshot.id,
+                            name: (profile && profile.language === 'es-ES' && doc.sp_name)?doc.sp_name:doc.name
                         }
                     }
 
                     subcategories.push({
                         ...documentSnapshot.data(),
                         key: documentSnapshot.id,
+                        name: (profile && profile.language === 'es-ES' && doc.sp_name)?doc.sp_name:doc.name
                     });
                 });
                 this.setState({ subcategories })

@@ -1,4 +1,4 @@
-package com.montalvo;
+package com.brainyapps.ezfind;
 
 import com.facebook.react.ReactActivity;
 

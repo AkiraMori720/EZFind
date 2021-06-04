@@ -8,12 +8,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:190185776330:android:abee455deefd5228088033",
+        "mobilesdk_app_id": "1:190185776330:android:c9aeb2721b0aecfe088033",
         "android_client_info": {
-          "package_name": "com.montalvo"
+          "package_name": "com.brainyapps.ezfind"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "190185776330-fbb6o0puhgqcrqadphhis1r3fkn0j1pn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brainyapps.ezfind",
+            "certificate_hash": "3bce41820da2c66e5f48c6f4c604154bb20244e3"
+          }
+        },
+        {
+          "client_id": "190185776330-gocbmb4re3dckei8bvkip35ll1e8jbsq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.brainyapps.ezfind",
+            "certificate_hash": "3739f6fa93f1a0392631df841d0787bacb1bc044"
+          }
+        },
         {
           "client_id": "190185776330-k1tgkafo3hqciff6o5tnd77la5hfns86.apps.googleusercontent.com",
           "client_type": 3
@@ -30,6 +46,13 @@
             {
               "client_id": "190185776330-k1tgkafo3hqciff6o5tnd77la5hfns86.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "190185776330-d90du75md08optj9p1tfuivjipi6kpdd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.brainyapps.EZFind"
+              }
             }
           ]
         }

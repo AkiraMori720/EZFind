@@ -44,6 +44,7 @@ class PostItem extends React.Component {
         };
     }
     componentDidMount() {
+        const { profile } = this.props;
         this.filters_subscriber = firestore()
             .collection('filters')
             .onSnapshot((querySnapshot) => {
@@ -61,9 +62,11 @@ class PostItem extends React.Component {
             .onSnapshot((querySnapshot) => {
                 const categories = [];
                 querySnapshot && querySnapshot.forEach(documentSnapshot => {
+                    const category = documentSnapshot.data();
                     categories.push({
                         ...documentSnapshot.data(),
                         key: documentSnapshot.id,
+                        name: (profile && profile.language === 'es-ES' && category.sp_name)?category.sp_name:category.name
                     });
                 });
                 this.setState({ categories })
@@ -135,6 +138,7 @@ class PostItem extends React.Component {
 
     };
     selectCategory(category) {
+        const { profile } = this.props;
         this.setState({ category, collapsed_cate: false, subcategory: null })
         this.subcategories_subscriber && this.subcategories_subscriber()
         this.subcategories_subscriber = firestore()
@@ -142,9 +146,11 @@ class PostItem extends React.Component {
             .onSnapshot((querySnapshot) => {
                 const subcategories = [];
                 querySnapshot && querySnapshot.forEach(documentSnapshot => {
+                    const subCategory = documentSnapshot.data();
                     subcategories.push({
-                        ...documentSnapshot.data(),
+                        ...subCategory,
                         key: documentSnapshot.id,
+                        name: (profile.language === 'es-ES' && subCategory.sp_name)?subCategory.sp_name:subCategory.name
                     });
                 });
                 this.setState({ subcategory: null, subcategories })

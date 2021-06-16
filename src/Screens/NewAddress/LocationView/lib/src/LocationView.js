@@ -134,7 +134,7 @@ export default class LocationView extends React.Component {
                         leftIconPath={images.headerLeftBack}
                         title={this.props.isEdit ? I18n.t('Edit Delivery Address') : I18n.t('New Delivery Address')}
                         onLeftIconPress={() => this.props.navigation.goBack()}
-                        rightText={I18n.t('Done')}
+                        rightText={I18n.t('DONE')}
                         onRightIconPress={() => {
                             const data = this._input.getAddress();
                             if (data && data.json) {
